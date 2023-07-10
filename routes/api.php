@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\DeveloperController;
+use App\Http\Controllers\API\ProjectController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,5 +25,11 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/create', [DeveloperController::class, 'store']);
         Route::put('/{developer}', [DeveloperController::class, 'update']);
         Route::delete('/{developer}', [DeveloperController::class, 'destroy']);
+    });
+    Route::group(['prefix' => 'projects'], function () {
+        Route::get('/', [ProjectController::class, 'index']);
+        Route::post('/create', [ProjectController::class, 'store']);
+        Route::put('/{project}', [ProjectController::class, 'update']);
+        Route::delete('/{project}', [ProjectController::class, 'destroy']);
     });
 });

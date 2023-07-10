@@ -21,12 +21,14 @@ class DeveloperRepository implements DeveloperRepositoryInterface
     public function updateDeveloper($developer, array $newDetails)
     {
         $developer->update($newDetails);
+
         return $developer;
     }
 
     public function deleteDeveloper($developer)
     {
         $developer->delete();
+
         return $developer;
     }
 }

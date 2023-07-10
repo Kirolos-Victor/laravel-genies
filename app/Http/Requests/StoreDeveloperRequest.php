@@ -18,7 +18,7 @@ class StoreDeveloperRequest extends FormRequest
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email:filter', 'unique:developers,email'],
             'password' => ['required', 'confirmed'],
-            'username' => ['required', 'string', 'max:255']
+            'username' => ['required', 'string', 'max:255'],
         ];
     }
 

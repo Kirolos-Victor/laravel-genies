@@ -9,7 +9,6 @@ use App\Http\Resources\DeveloperResource;
 use App\Models\Developer;
 use App\Repositories\DeveloperRepository;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 class DeveloperController extends Controller
 {

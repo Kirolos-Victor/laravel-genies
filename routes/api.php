@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\API\DeveloperController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -18,6 +19,11 @@ use Illuminate\Support\Facades\Route;
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware('auth:sanctum')->group(function () {
+    Route::group(['prefix' => 'developers'], function () {
+        Route::get('/', [DeveloperController::class, 'index']);
+        Route::post('/create', [DeveloperController::class, 'store']);
+        Route::put('/{developer}', [DeveloperController::class, 'update']);
+        Route::delete('/{developer}', [DeveloperController::class, 'destroy']);
+    });
 });

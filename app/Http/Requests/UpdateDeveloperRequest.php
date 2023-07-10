@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\ValidationException;
 
-class UserRegisterRequest extends FormRequest
+class UpdateDeveloperRequest extends FormRequest
 {
     public function authorize(): bool
     {
@@ -14,10 +14,12 @@ class UserRegisterRequest extends FormRequest
 
     public function rules(): array
     {
+        $developer = $this->route('developer');
         return [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'email:filter', 'unique:users,email'],
-            'password' => ['required', 'confirmed'],
+            'email' => ['required', 'email:filter', 'unique:developers,email,' . $developer->id],
+            'password' => ['nullable', 'confirmed'],
+            'username' => ['required', 'string', 'max:255']
         ];
     }
 

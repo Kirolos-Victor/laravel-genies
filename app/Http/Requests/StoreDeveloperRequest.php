@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\ValidationException;
 
-class UserRegisterRequest extends FormRequest
+class StoreDeveloperRequest extends FormRequest
 {
     public function authorize(): bool
     {
@@ -16,8 +16,9 @@ class UserRegisterRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'email:filter', 'unique:users,email'],
+            'email' => ['required', 'email:filter', 'unique:developers,email'],
             'password' => ['required', 'confirmed'],
+            'username' => ['required', 'string', 'max:255']
         ];
     }
 

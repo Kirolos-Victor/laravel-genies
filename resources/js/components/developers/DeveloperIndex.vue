@@ -3,7 +3,7 @@
         <div class="justify-content-center">
             <div class="card">
                 <div class="card-header">
-                    <router-link to="/developers">Developers</router-link>
+                    Developers
                 </div>
                 <div class="card-body">
                     <developer-create-modal></developer-create-modal>
@@ -25,7 +25,9 @@
                             <td>{{ developer.username }}</td>
                             <td>
                                 <developer-update-modal :developer="developer"></developer-update-modal>
-                                <button class="btn btn-danger" style="margin-left: 20px;" @click.prevent="deleteDeveloper(developer.id)">Delete</button>
+                                <button class="btn btn-danger" style="margin-left: 20px;"
+                                        @click.prevent="deleteDeveloper(developer.id)">Delete
+                                </button>
                             </td>
                         </tr>
                         </tbody>

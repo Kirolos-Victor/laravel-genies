@@ -52,9 +52,11 @@
                         @endif
                     @else
                         <li class="nav-item">
-                            <a class="nav-link">
-                                <router-link to="/developers">Developers</router-link>
-                            </a>
+                            <router-link to="/developers" class="nav-link">
+                                <p>
+                                    Developers
+                                </p>
+                            </router-link>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link">Projects</a>
@@ -84,6 +86,9 @@
     </nav>
     <main class="py-4">
         @yield('content')
+        <router-view>
+
+        </router-view>
     </main>
 
 </div>

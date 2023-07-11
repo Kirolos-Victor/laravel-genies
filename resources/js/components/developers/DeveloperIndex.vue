@@ -2,7 +2,9 @@
     <div class="container">
         <div class="justify-content-center">
             <div class="card">
-                <div class="card-header">Developers</div>
+                <div class="card-header">
+                    <router-link to="/developers">Developers</router-link>
+                </div>
                 <div class="card-body">
                     <developer-create-modal></developer-create-modal>
                     <table class="table">

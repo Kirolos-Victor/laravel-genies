@@ -17,6 +17,7 @@
     },
     "dependencies": {
         "sweetalert2": "^11.7.16",
+        "vue-router": "^4.2.4",
         "vuex": "^4.0.2"
     }
 }

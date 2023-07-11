@@ -22,6 +22,12 @@ class DeveloperController extends Controller
             ->json(DeveloperResource::collection($this->developerRepository->getAllDevelopers()));
     }
 
+    public function show(Developer $developer): JsonResponse
+    {
+        return response()
+            ->json(DeveloperResource::make($developer));
+    }
+
     public function store(StoreDeveloperRequest $request): JsonResponse
     {
         return response()

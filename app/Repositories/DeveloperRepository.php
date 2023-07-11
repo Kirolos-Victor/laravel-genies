@@ -20,6 +20,10 @@ class DeveloperRepository implements DeveloperRepositoryInterface
 
     public function updateDeveloper($developer, array $newDetails)
     {
+        if ($newDetails['password'] == null) {
+            unset($newDetails['password']);
+            unset($newDetails['password_confirmation']);
+        }
         $developer->update($newDetails);
 
         return $developer;

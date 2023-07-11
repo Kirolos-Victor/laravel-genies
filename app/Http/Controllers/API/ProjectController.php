@@ -22,6 +22,12 @@ class ProjectController extends Controller
             ->json(ProjectResource::collection($this->projectRepository->getAllProjects()));
     }
 
+    public function show(Project $project): JsonResponse
+    {
+        return response()
+            ->json(ProjectResource::make($this));
+    }
+
     public function store(StoreProjectRequest $request): JsonResponse
     {
         return response()

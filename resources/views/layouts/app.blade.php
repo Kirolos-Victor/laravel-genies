@@ -59,7 +59,11 @@
                             </router-link>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link">Projects</a>
+                            <router-link to="/projects" class="nav-link">
+                                <p>
+                                    Projects
+                                </p>
+                            </router-link>
                         </li>
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"

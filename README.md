@@ -35,6 +35,8 @@
 > I have created a CRUD RESTful APIs for Developers and Projects.
 
 > I also added a simple CRUD operations for Developers and Projects with Pivot relation between them using Vue 3.
+> 
+> Here is a link for the Postman Collection: https://api.postman.com/collections/28258848-45bdd855-b893-407e-b745-f5c25341eddb?access_key=PMAT-01H5586VMFGK2PGK4WYTTH8KZF
 >
 > Tech stack used: PHP 8.1, Laravel 10.10 , Vue Js 3.3 with the setup and composition API, Bootstrap 5
 

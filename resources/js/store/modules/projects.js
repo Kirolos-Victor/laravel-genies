@@ -43,7 +43,7 @@ const actions = {
             });
     },
     addProject({commit}, payload) {
-        axios.post('/api/projects/create', payload)
+        axios.post('/api/projects', payload)
             .then(response => {
                 commit('RESET_ERRORS');
                 commit('ADD_PROJECT', response.data);

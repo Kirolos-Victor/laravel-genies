@@ -43,7 +43,7 @@ const actions = {
             });
     },
     addDeveloper({commit}, payload) {
-        axios.post('/api/developers/create', payload)
+        axios.post('/api/developers', payload)
             .then(response => {
                 commit('RESET_ERRORS');
                 commit('ADD_DEVELOPER', response.data);

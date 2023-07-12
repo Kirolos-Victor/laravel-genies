@@ -3,11 +3,15 @@ import axios from 'axios';
 const state = {
     projects: [],
     errors: [],
+    project: [],
 };
 
 const mutations = {
     SET_PROJECTS(state, projects) {
         state.projects = projects;
+    },
+    GET_PROJECT(state, project) {
+        state.project = project
     },
     ADD_PROJECT(state, project) {
         state.projects.push(project);
@@ -41,6 +45,12 @@ const actions = {
             .catch(error => {
                 console.error(error);
             });
+    },
+    getProject({commit}, projectId) {
+        axios.get('/api/projects/' + projectId)
+            .then(response => {
+                commit('GET_PROJECT', response.data)
+            })
     },
     addProject({commit}, payload) {
         axios.post('/api/projects', payload)

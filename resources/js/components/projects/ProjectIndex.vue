@@ -24,7 +24,7 @@
                             <td>{{ project.description }}</td>
                             <td>{{ project.status }}</td>
                             <td>
-                                <project-update-modal :project="project"></project-update-modal>
+                                <project-update-modal :projectIndex="project.id"></project-update-modal>
                                 <button class="btn btn-danger" style="margin-left: 20px;"
                                         @click.prevent="deleteProject(project.id)">Delete
                                 </button>

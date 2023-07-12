@@ -3,11 +3,15 @@ import axios from 'axios';
 const state = {
     developers: [],
     errors: [],
+    developer: [],
 };
 
 const mutations = {
     SET_DEVELOPERS(state, developers) {
         state.developers = developers;
+    },
+    GET_DEVELOPER(state, developer) {
+        state.developer = developer;
     },
     ADD_DEVELOPER(state, developer) {
         state.developers.push(developer);
@@ -42,6 +46,13 @@ const actions = {
                 console.error(error);
             });
     },
+    getDeveloper({commit}, developerId) {
+        axios.get('/api/developers/' + developerId)
+            .then(response => {
+                commit('GET_DEVELOPER', response.data)
+            })
+    },
+
     addDeveloper({commit}, payload) {
         axios.post('/api/developers', payload)
             .then(response => {
@@ -49,8 +60,7 @@ const actions = {
                 commit('ADD_DEVELOPER', response.data);
                 document.getElementById('closeModal').click();
                 Toast.fire({
-                    icon: 'success',
-                    title: 'Developer created successfully'
+                    icon: 'success', title: 'Developer created successfully'
                 })
             })
             .catch(error => {
@@ -64,8 +74,7 @@ const actions = {
                 commit('UPDATE_DEVELOPER', response.data);
                 document.getElementById('closeModal' + payload.index).click()
                 Toast.fire({
-                    icon: 'success',
-                    title: 'Developer updated successfully'
+                    icon: 'success', title: 'Developer updated successfully'
                 })
             })
             .catch(error => {
@@ -84,7 +93,5 @@ const actions = {
 };
 
 export default {
-    state,
-    mutations,
-    actions,
+    state, mutations, actions,
 };

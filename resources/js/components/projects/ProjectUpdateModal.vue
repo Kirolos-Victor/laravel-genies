@@ -1,11 +1,11 @@
 <template>
     <!-- Button trigger modal -->
     <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-            :data-bs-target="'#updateProject'+$props.project.id" @click="resetModalValidation(), fetchDevelopers()">
+            :data-bs-target="'#updateProject'+$props.projectIndex" @click="getProject(), fetchDevelopers()">
         Update
     </button>
     <!-- Modal -->
-    <div class="modal fade" :id="'updateProject'+$props.project.id" data-bs-backdrop="static"
+    <div class="modal fade" :id="'updateProject'+$props.projectIndex" data-bs-backdrop="static"
          data-bs-keyboard="false">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -21,22 +21,22 @@
                         <div class="form-group">
                             <label>Name</label>
                             <input type="text" name="name" class="form-control" placeholder="Enter The Name"
-                                   v-model="formData.name">
+                                   v-model="project.name">
                         </div>
                         <div class="form-group">
                             <label>Description</label>
                             <input type="text" name="email" class="form-control" placeholder="Enter The Description"
-                                   v-model="formData.description">
+                                   v-model="project.description">
                         </div>
                         <div class="form-group">
                             <label>Status</label>
-                            <select class="form-select" v-model="formData.status">
+                            <select class="form-select" v-model="project.status">
                                 <option v-for="status in statuses">{{ status }}</option>
                             </select>
                         </div>
                         <div class="form-group">
                             <label>Select developers that will work on this project</label>
-                            <select class="form-select" v-model="formData.developers" multiple>
+                            <select class="form-select" v-model="project.developers" multiple>
                                 <option v-for="developer in developers" :value="developer.id">
                                     {{ developer.name }}
                                 </option>
@@ -45,7 +45,7 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" :id="'closeModal'+$props.project.id"
+                    <button type="button" class="btn btn-secondary" :id="'closeModal'+$props.projectIndex"
                             data-bs-dismiss="modal">Close
                     </button>
                     <button type="button" class="btn btn-primary" @click.prevent="updateProject">Update</button>
@@ -62,17 +62,12 @@ import {computed, reactive, ref} from "vue";
 
 export default {
     name: "ProjectUpdateModal",
-    props: ['project'],
+    props: ['projectIndex'],
     setup(props) {
         const statuses = ref(['active', 'completed', 'canceled', 'suspended'])
         const store = useStore();
         const errors = computed(() => store.state.projects.errors);
-        const formData = reactive({
-            name: props.project.name,
-            description: props.project.description,
-            status: props.project.status,
-            developers: props.project.developers
-        })
+        const project = computed(() => store.state.projects.project);
         const developers = computed(() => store.state.developers.developers)
 
         function resetModalValidation() {
@@ -80,7 +75,14 @@ export default {
         }
 
         function updateProject() {
-            store.dispatch('updateProject', {index: props.project.id, data: formData});
+            store.dispatch('updateProject', {index: props.projectIndex, data: project.value});
+        }
+
+        function getProject() {
+            resetModalValidation();
+            if (project.value.id !== props.projectIndex) {
+                store.dispatch('getProject', props.projectIndex);
+            }
         }
 
         function fetchDevelopers() {
@@ -92,11 +94,12 @@ export default {
         return {
             errors,
             updateProject,
-            formData,
             resetModalValidation,
             statuses,
             developers,
-            fetchDevelopers
+            fetchDevelopers,
+            getProject,
+            project
         }
     }
 }

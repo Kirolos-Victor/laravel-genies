@@ -24,7 +24,7 @@
                             <td>{{ developer.email }}</td>
                             <td>{{ developer.username }}</td>
                             <td>
-                                <developer-update-modal :developer="developer"></developer-update-modal>
+                                <developer-update-modal :developerIndex="developer.id"></developer-update-modal>
                                 <button class="btn btn-danger" style="margin-left: 20px;"
                                         @click.prevent="deleteDeveloper(developer.id)">Delete
                                 </button>

@@ -25,7 +25,7 @@ class ProjectController extends Controller
     public function show(Project $project): JsonResponse
     {
         return response()
-            ->json(ProjectResource::make($this));
+            ->json(ProjectResource::make($project));
     }
 
     public function store(StoreProjectRequest $request): JsonResponse

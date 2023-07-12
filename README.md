@@ -19,6 +19,8 @@
 ### Run the database migrations (Set the database connection in .env before migrating)
 
 > run **php artisan migrate**
+>
+> I have created seeders for developers and projects if you are interested, run instead **php artisan migrate --seed**
 
 ### Install Node Modules
 

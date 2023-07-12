@@ -1,7 +1,7 @@
 <template>
     <!-- Button trigger modal -->
     <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-            :data-bs-target="'#updateProject'+$props.project.id" @click="resetModalValidation">
+            :data-bs-target="'#updateProject'+$props.project.id" @click="resetModalValidation(), fetchDevelopers()">
         Update
     </button>
     <!-- Modal -->
@@ -34,6 +34,14 @@
                                 <option v-for="status in statuses">{{ status }}</option>
                             </select>
                         </div>
+                        <div class="form-group">
+                            <label>Select developers that will work on this project</label>
+                            <select class="form-select" v-model="formData.developers" multiple>
+                                <option v-for="developer in developers" :value="developer.id">
+                                    {{ developer.name }}
+                                </option>
+                            </select>
+                        </div>
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -62,8 +70,10 @@ export default {
         const formData = reactive({
             name: props.project.name,
             description: props.project.description,
-            status: props.project.status
+            status: props.project.status,
+            developers: props.project.developers
         })
+        const developers = computed(() => store.state.developers.developers)
 
         function resetModalValidation() {
             store.commit('RESET_ERRORS');
@@ -73,12 +83,20 @@ export default {
             store.dispatch('updateProject', {index: props.project.id, data: formData});
         }
 
+        function fetchDevelopers() {
+            if (developers.value.length <= 0) {
+                store.dispatch('fetchDevelopers');
+            }
+        }
+
         return {
             errors,
             updateProject,
             formData,
             resetModalValidation,
-            statuses
+            statuses,
+            developers,
+            fetchDevelopers
         }
     }
 }

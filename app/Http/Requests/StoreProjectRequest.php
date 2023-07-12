@@ -20,6 +20,7 @@ class StoreProjectRequest extends FormRequest
             'name' => ['required', 'string', 'max:255'],
             'description' => ['required', 'string', 'max:255'],
             'status' => ['required', new Enum(ProjectStatus::class)],
+            'developers' => ['nullable', 'array']
         ];
     }
 

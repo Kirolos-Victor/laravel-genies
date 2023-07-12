@@ -14,6 +14,7 @@ class ProjectResource extends JsonResource
             'name' => $this->name,
             'description' => $this->description,
             'status' => $this->status,
+            'developers' => DeveloperResource::collection($this->developers),
         ];
     }
 }

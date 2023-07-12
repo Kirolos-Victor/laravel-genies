@@ -1,7 +1,7 @@
 <template>
     <!-- Button trigger modal -->
     <button type="button" class="btn btn-primary float-end mb-3" data-bs-toggle="modal"
-            data-bs-target="#createProject" @click="resetModalValidation">
+            data-bs-target="#createProject" @click="resetModalValidation(), fetchDevelopers()">
         Create a project
     </button>
     <!-- Modal -->
@@ -33,6 +33,14 @@
                                 <option v-for="status in statuses">{{ status }}</option>
                             </select>
                         </div>
+                        <div class="form-group">
+                            <label>Select developers that will work on this project</label>
+                            <select class="form-select" v-model="formData.developers" multiple>
+                                <option v-for="developer in developers" :value="developer.id">
+                                    {{ developer.name }}
+                                </option>
+                            </select>
+                        </div>
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -52,6 +60,7 @@ import {computed, reactive, ref} from "vue";
 
 export default {
     name: "ProjectCreateModal",
+
     setup() {
         const statuses = ref(['active', 'completed', 'canceled', 'suspended'])
         const store = useStore();
@@ -60,17 +69,27 @@ export default {
             name: '',
             description: '',
             status: '',
+            developers: []
         })
+        const developers = computed(() => store.state.developers.developers)
 
         function resetModalValidation() {
             store.commit('RESET_ERRORS');
             formData.name = ''
             formData.description = ''
             formData.status = ''
+            formData.developers = []
+
         }
 
         async function addProject() {
             await store.dispatch('addProject', formData);
+        }
+
+        function fetchDevelopers() {
+            if (developers.value.length <= 0) {
+                store.dispatch('fetchDevelopers');
+            }
         }
 
         return {
@@ -78,7 +97,9 @@ export default {
             errors,
             addProject,
             resetModalValidation,
-            formData
+            formData,
+            developers,
+            fetchDevelopers
         }
     }
 }

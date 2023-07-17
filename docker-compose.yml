@@ -1,0 +1,38 @@
+version: '3.9'
+
+services:
+    app:
+        build: .
+        volumes:
+            - .:/var/www/app
+        depends_on:
+            - db
+        ports:
+            - 8000:8000
+
+    db:
+        image: mysql:8.0
+        environment:
+            MYSQL_DATABASE: ${DB_DATABASE}
+            MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+            MYSQL_PASSWORD: ${DB_PASSWORD}
+            MYSQL_USER: ${DB_USERNAME}
+            SERVICE_TAGS: dev
+            SERVICE_NAME: mysql
+
+        ports:
+            - 3306:3306
+        volumes:
+            - db-data:/var/lib/mysql
+
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        ports:
+            - 8080:80
+        environment:
+            PMA_HOST: db
+        volumes:
+            - db-data:/var/lib/mysql
+
+volumes:
+    db-data: ~
